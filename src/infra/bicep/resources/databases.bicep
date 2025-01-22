@@ -171,11 +171,6 @@ resource cosmosCarts 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
   properties: {
     databaseAccountOfferType: 'Standard'
     enableFreeTier: false
-    capabilities: [
-      {
-        name: 'EnableServerless'
-      }
-    ]
     locations: [
       {
         locationName: location
