@@ -92,7 +92,11 @@ public class DependencyInjection : FunctionsStartup
 
         var cartsDatabaseName = configuration[KeyVaultConstants.SecretNameCartsDbName];
         var cartsDbConnectionString = configuration[KeyVaultConstants.SecretNameCartsDbConnectionString];
-        services.AddSingleton(_ => new CosmosClient(cartsDbConnectionString).GetDatabase(cartsDatabaseName));
+        // limit to endpoint and do not discover additional regions.
+        CosmosClientOptions cartOptions = new  CosmosClientOptions();
+        cartOptions.LimitToEndpoint = true;
+ 
+        services.AddSingleton(_ => new CosmosClient(connectionString: cartsDbConnectionString, clientOptions: cartOptions).GetDatabase(cartsDatabaseName));
 
         // inject services
         services
